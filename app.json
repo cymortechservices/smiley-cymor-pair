@@ -1,0 +1,8 @@
+{
+  "name": "SMILEY-CYMOR-PAIR",
+  "description": "SMILEY CYMOR MD pair website. No one does it better than me.",
+  "env": {
+    "BOT_REPO": { "description": "GitHub URL of your bot repo, e.g. https://github.com/yourname/smiley-cymor-md", "required": false }
+  },
+  "buildpacks": [{ "url": "heroku/nodejs" }]
+}

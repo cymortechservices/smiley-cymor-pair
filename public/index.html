@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SMILEY CYMOR MD — Pair &amp; Deploy</title>
+<meta name="description" content="Link your WhatsApp to SMILEY CYMOR MD, get your session ID and deploy the bot in minutes. No one does it better than me.">
+<meta name="theme-color" content="#04070f">
+<meta property="og:title" content="SMILEY CYMOR MD — Pair &amp; Deploy">
+<meta property="og:description" content="Get your pairing code and session ID. No one does it better than me.">
+<meta property="og:image" content="/og.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="intro-on">
+
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div class="scan" aria-hidden="true"></div>
+<div class="flash" id="flash" aria-hidden="true"></div>
+
+<!-- ═════════════════ INTRO ═════════════════ -->
+<section id="intro" aria-label="Intro animation">
+  <div class="term" id="termBox" aria-hidden="true">
+    <div class="term-bar"><i></i><i></i><i></i><span>cymor@root — pair-engine</span></div>
+    <pre class="term-body" id="term"></pre>
+  </div>
+
+  <div class="access" id="access" data-text="ACCESS GRANTED" aria-hidden="true">ACCESS GRANTED</div>
+
+  <div class="stage" id="stage">
+    <div class="glow glow-red"></div>
+    <div class="glow glow-cyan"></div>
+    <div class="shock"></div><div class="shock s2"></div>
+    <img id="introLogo" src="/logo.png" alt="SMILEY CYMOR MD logo" width="420" height="420">
+  </div>
+
+  <h1 class="wordmark" id="wordmark" aria-label="SMILEY CYMOR MD"></h1>
+  <p class="motto" id="motto"></p>
+
+  <button class="enter" id="enter" type="button">ENTER</button>
+  <button class="skip" id="skip" type="button">Skip intro ›</button>
+</section>
+
+<!-- ═════════════════ SITE ═════════════════ -->
+<div id="site" hidden>
+  <header class="top">
+    <a class="brand" href="#top" aria-label="SMILEY CYMOR MD home">
+      <img src="/favicon.png" alt="" width="38" height="38">
+      <span>SMILEY&nbsp;CYMOR&nbsp;<b>MD</b></span>
+    </a>
+    <nav>
+      <a href="#pair">Pair</a>
+      <a href="#deploy">Deploy</a>
+      <a href="#" id="navChannel" target="_blank" rel="noopener">Channel</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-logo">
+        <div class="hero-ring"></div>
+        <img src="/logo.png" alt="SMILEY CYMOR MD" width="220" height="220">
+      </div>
+      <h2 class="hero-title">Link your <span class="grad">WhatsApp</span></h2>
+      <p class="hero-sub">Get your pairing code, receive your <b>Session ID</b> on WhatsApp, then deploy the bot anywhere in minutes.</p>
+      <ul class="chips">
+        <li>⚡ ~30 seconds</li><li>🔒 Nothing stored</li><li>📵 No QR scanning</li>
+      </ul>
+    </section>
+
+    <!-- PAIR CARD -->
+    <section id="pair" class="card pair-card" aria-labelledby="pairTitle">
+      <div class="card-glow" aria-hidden="true"></div>
+      <div class="card-in">
+        <ol class="stepper" id="stepper" aria-label="Progress">
+          <li data-step="1" class="on"><b>1</b><span>Number</span></li>
+          <li data-step="2"><b>2</b><span>Code</span></li>
+          <li data-step="3"><b>3</b><span>Link</span></li>
+          <li data-step="4"><b>4</b><span>Session</span></li>
+        </ol>
+
+        <!-- View: number -->
+        <div class="view" id="v-number">
+          <h3 id="pairTitle">Enter your WhatsApp number</h3>
+          <p class="muted">Use your full number with country code — <b>digits only, no + sign</b>.</p>
+          <form id="pairForm" autocomplete="off" novalidate>
+            <label class="field" for="num">
+              <span class="field-ic" aria-hidden="true">📱</span>
+              <input id="num" name="num" inputmode="numeric" pattern="[0-9]*" maxlength="15" placeholder="254113821327" aria-describedby="numHint" autocomplete="tel-national" required>
+            </label>
+            <div class="hint" id="numHint" role="status" aria-live="polite">Example: <code>254113821327</code> (Kenya) · <code>2348012345678</code> (Nigeria)</div>
+            <div class="cc" aria-label="Quick country codes">
+              <button type="button" data-cc="254">🇰🇪 254</button>
+              <button type="button" data-cc="255">🇹🇿 255</button>
+              <button type="button" data-cc="256">🇺🇬 256</button>
+              <button type="button" data-cc="234">🇳🇬 234</button>
+              <button type="button" data-cc="27">🇿🇦 27</button>
+              <button type="button" data-cc="233">🇬🇭 233</button>
+              <button type="button" data-cc="91">🇮🇳 91</button>
+              <button type="button" data-cc="1">🇺🇸 1</button>
+              <button type="button" data-cc="44">🇬🇧 44</button>
+            </div>
+            <button class="btn primary" id="goBtn" type="submit"><span class="btn-t">Generate pairing code</span><span class="spin" aria-hidden="true"></span></button>
+          </form>
+        </div>
+
+        <!-- View: code -->
+        <div class="view" id="v-code" hidden>
+          <h3>Your pairing code</h3>
+          <p class="muted">Enter this code in WhatsApp on <b id="shownNum">your phone</b>.</p>
+          <div class="code" id="codeBox" aria-live="polite"></div>
+          <div class="row">
+            <button class="btn ghost" id="copyCode" type="button">📋 Copy code</button>
+            <button class="btn ghost" id="changeNum" type="button">✏️ Change number</button>
+          </div>
+          <div class="status" id="status" role="status" aria-live="polite"><span class="pulse"></span><span id="statusTxt">Waiting for you to enter the code…</span><em id="timer"></em></div>
+
+          <div class="how">
+            <h4>How to link — step by step</h4>
+            <ol>
+              <li><b>Open WhatsApp</b> on the phone that owns this number.</li>
+              <li>Android: tap <b>⋮ (menu) → Linked devices</b>.<br>iPhone: tap <b>Settings → Linked devices</b>.</li>
+              <li>Tap <b>Link a device</b>.</li>
+              <li>At the bottom tap <b>“Link with phone number instead”</b>.</li>
+              <li>Type the <b>8-character code</b> shown above.</li>
+              <li>Wait a few seconds — your <b>Session ID</b> (starts with <code>cymor</code>) arrives as a WhatsApp message to yourself.</li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- View: success -->
+        <div class="view" id="v-done" hidden>
+          <div class="tick" aria-hidden="true"><svg viewBox="0 0 52 52"><circle cx="26" cy="26" r="24"/><path d="M14 27l8 8 16-18"/></svg></div>
+          <h3>Linked successfully!</h3>
+          <p class="muted" id="doneMsg">Your Session ID was sent to your WhatsApp.</p>
+          <div class="session">
+            <div class="session-top"><span>SESSION ID</span><em id="sessLen"></em></div>
+            <code id="sessMask">cymor~••••••••</code>
+            <div class="row">
+              <button class="btn primary" id="copySess" type="button">📋 Copy Session ID</button>
+              <button class="btn ghost" id="toDeploy" type="button">🚀 Deploy now</button>
+            </div>
+          </div>
+          <p class="warn">⚠️ Never share your Session ID — whoever has it controls your WhatsApp.</p>
+          <button class="link" id="again" type="button">Pair another number</button>
+        </div>
+
+        <!-- View: error -->
+        <div class="view" id="v-error" hidden>
+          <div class="cross" aria-hidden="true">✕</div>
+          <h3>Something went wrong</h3>
+          <p class="muted" id="errMsg">Please try again.</p>
+          <button class="btn primary" id="retry" type="button">Try again</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEPLOY -->
+    <section id="deploy" class="deploy" aria-labelledby="depTitle">
+      <h2 id="depTitle" class="sec-title">Deploy <span class="grad">SMILEY CYMOR MD</span></h2>
+      <p class="sec-sub">Pick a platform. In every one, the only thing you must set is the <code>SESSION</code> variable.</p>
+
+      <div class="envbox">
+        <div class="env-head"><span>Your SESSION variable</span><button class="mini" id="copyEnv" type="button">Copy</button></div>
+        <code id="envLine">SESSION=<i>(pair above to fill this in)</i></code>
+        <table class="envtab">
+          <tr><th>Variable</th><th>Needed</th><th>What to put</th></tr>
+          <tr><td><code>SESSION</code></td><td class="req">Required</td><td>The Session ID you received (starts with <code>cymor</code>)</td></tr>
+          <tr><td><code>DEV</code></td><td>Recommended</td><td>Your number with country code, no +</td></tr>
+          <tr><td><code>BOTNAME</code></td><td>Optional</td><td>Display name — default <code>SMILEY CYMOR MD</code></td></tr>
+        </table>
+      </div>
+
+      <div class="plat-grid" id="platGrid"></div>
+      <p class="note" id="repoNote" hidden>The one-click deploy buttons appear once the owner sets the <code>BOT_REPO</code> variable on this site. You can still follow the manual steps below, or ask the owner for the bot files.</p>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <img src="/favicon.png" alt="" width="54" height="54">
+    <p><b>SMILEY CYMOR MD</b> · <i>No one does it better than me</i></p>
+    <p class="muted">Owner: <a id="ownerLink" href="#" target="_blank" rel="noopener">Legendary Smiley Cymor</a> · <a id="chanLink" href="#" target="_blank" rel="noopener">Follow the channel</a></p>
+    <p class="tiny">Powered by CymorTechServices · Not affiliated with WhatsApp Inc.</p>
+  </footer>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>

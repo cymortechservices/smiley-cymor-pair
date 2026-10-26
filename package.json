@@ -1,0 +1,18 @@
+{
+  "name": "smiley-cymor-pair",
+  "version": "1.0.0",
+  "description": "SMILEY CYMOR MD pair website - get a pairing code and a cymor session ID",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=20" },
+  "author": "Legendary Smiley Cymor",
+  "license": "MIT",
+  "dependencies": {
+    "@whiskeysockets/baileys": "npm:keithbaileys",
+    "pino": "^10.3.1"
+  },
+  "overrides": {
+    "libsignal": "6.0.0",
+    "@whiskeysockets/baileys": { "libsignal": "6.0.0" }
+  }
+}
