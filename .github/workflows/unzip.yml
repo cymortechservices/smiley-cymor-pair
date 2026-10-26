@@ -1,0 +1,32 @@
+name: Unzip pair site
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "smiley-cymor-pair.zip"
+
+permissions:
+  contents: write
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Unzip and move files to repo root
+        run: |
+          set -e
+          unzip -q smiley-cymor-pair.zip -d _extract
+          shopt -s dotglob
+          mv _extract/smiley-cymor-pair/* .
+          rm -rf _extract smiley-cymor-pair.zip
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -m "Unzip pair site"
+          git push
