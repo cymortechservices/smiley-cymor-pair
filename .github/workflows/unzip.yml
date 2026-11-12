@@ -1,32 +1,37 @@
-name: Unzip pair site
+name: Extract pair zip
 
 on:
-  workflow_dispatch:
   push:
     paths:
-      - "smiley-cymor-pair.zip"
+      - "SMILEY-CYMOR-MD-pair.zip"
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  unzip:
+  extract:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Unzip and move files to repo root
+      - name: Check the zip exists
         run: |
-          set -e
-          unzip -q smiley-cymor-pair.zip -d _extract
-          shopt -s dotglob
-          mv _extract/smiley-cymor-pair/* .
-          rm -rf _extract smiley-cymor-pair.zip
+          test -f SMILEY-CYMOR-MD-pair.zip || { echo "SMILEY-CYMOR-MD-pair.zip not found in repo root"; exit 1; }
 
-      - name: Commit and push
+      - name: Extract and flatten
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@users.noreply.github.com"
+          rm -rf /tmp/pair && mkdir /tmp/pair
+          unzip -q SMILEY-CYMOR-MD-pair.zip -d /tmp/pair
+          # contents of smiley-cymor-pair/ go to the repo root
+          cp -a /tmp/pair/smiley-cymor-pair/. .
+          rm -f SMILEY-CYMOR-MD-pair.zip
+
+      - name: Commit extracted files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Unzip pair site"
+          git diff --cached --quiet && { echo "Nothing to commit"; exit 0; }
+          git commit -m "Extract SMILEY CYMOR MD pair site [skip ci]"
           git push
