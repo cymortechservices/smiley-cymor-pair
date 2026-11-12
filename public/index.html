@@ -25,22 +25,43 @@
 
 <!-- ═════════════════ INTRO ═════════════════ -->
 <section id="intro" aria-label="Intro animation">
-  <div class="term" id="termBox" aria-hidden="true">
-    <div class="term-bar"><i></i><i></i><i></i><span>cymor@root — pair-engine</span></div>
-    <pre class="term-body" id="term"></pre>
+  <h1 class="sr-only">SMILEY CYMOR MD</h1>
+  <div class="tv" id="tv" aria-hidden="true">
+    <div class="ants"><i></i><i></i></div>
+    <div class="tv-body">
+      <div class="bezel">
+        <div class="tv-screen" id="tvScreen">
+          <div class="screen-bg"></div>
+
+          <div class="term" id="termBox">
+            <div class="term-bar"><i></i><i></i><i></i><span>cymor@root — pair-engine</span></div>
+            <pre class="term-body" id="term"></pre>
+          </div>
+
+          <div class="access" id="access" data-text="ACCESS GRANTED">ACCESS GRANTED</div>
+
+          <div class="stage-row" id="stageRow">
+            <div class="wordmark" id="wordmark"></div>
+            <div class="logo-slot" id="stage">
+              <div class="glow"></div>
+              <div class="shock"></div><div class="shock s2"></div>
+              <img id="introLogo" src="/logo.png" alt="" width="300" height="300">
+            </div>
+          </div>
+          <p class="motto" id="motto"></p>
+
+          <div class="screen-fx"></div>
+        </div>
+      </div>
+      <div class="tv-panel">
+        <i class="led" id="led"></i>
+        <span class="brandplate">CYMOR·VISION</span>
+        <span class="knob"></span><span class="knob"></span>
+        <span class="vents"></span>
+      </div>
+    </div>
+    <div class="feet"><i></i><i></i></div>
   </div>
-
-  <div class="access" id="access" data-text="ACCESS GRANTED" aria-hidden="true">ACCESS GRANTED</div>
-
-  <div class="stage" id="stage">
-    <div class="glow glow-red"></div>
-    <div class="glow glow-cyan"></div>
-    <div class="shock"></div><div class="shock s2"></div>
-    <img id="introLogo" src="/logo.png" alt="SMILEY CYMOR MD logo" width="420" height="420">
-  </div>
-
-  <h1 class="wordmark" id="wordmark" aria-label="SMILEY CYMOR MD"></h1>
-  <p class="motto" id="motto"></p>
 
   <button class="enter" id="enter" type="button">ENTER</button>
   <button class="skip" id="skip" type="button">Skip intro ›</button>
@@ -78,6 +99,7 @@
     <section id="pair" class="card pair-card" aria-labelledby="pairTitle">
       <div class="card-glow" aria-hidden="true"></div>
       <div class="card-in">
+        <div class="console-head"><span class="cdot"></span><b>SECURE PAIRING CONSOLE</b><em>encrypted · no data stored</em></div>
         <ol class="stepper" id="stepper" aria-label="Progress">
           <li data-step="1" class="on"><b>1</b><span>Number</span></li>
           <li data-step="2"><b>2</b><span>Code</span></li>

@@ -42,8 +42,8 @@ function frame(t) {
       for (let i = 0; i < drops.length; i++) {
         const x = i * fs, y = drops[i] * fs;
         const ch = GLYPHS[(Math.random() * GLYPHS.length) | 0];
-        cx.fillStyle = 'rgba(255,40,40,.85)'; cx.fillText(ch, x, y - fs);
-        cx.fillStyle = '#ffd6d6'; cx.fillText(GLYPHS[(Math.random() * GLYPHS.length) | 0], x, y);
+        cx.fillStyle = 'rgba(57,255,136,.55)'; cx.fillText(ch, x, y - fs);
+        cx.fillStyle = '#d9ffe9'; cx.fillText(GLYPHS[(Math.random() * GLYPHS.length) | 0], x, y);
         if (y > H && Math.random() > .975) drops[i] = -Math.random() * 20;
         drops[i]++;
       }
@@ -70,14 +70,14 @@ function frame(t) {
 }
 resize(); addEventListener('resize', resize); requestAnimationFrame(frame);
 
-/* ═══════════════ INTRO ═══════════════ */
+/* ═══════════════ INTRO — hacking terminal on a CRT TV ═══════════════ */
 const LINES = [
   ['dim',  'root@cymor:~# ./smiley-cymor-md --boot'],
-  ['ok',   '[  OK  ] loading kernel modules ........ done'],
-  ['ok',   '[  OK  ] spawning pair-engine v1.0 ..... done'],
-  ['ok',   '[  OK  ] opening encrypted WhatsApp tunnel'],
+  ['ok',   '[  OK  ] loading kernel modules ...... done'],
+  ['ok',   '[  OK  ] spawning pair-engine v2.0 ... done'],
   ['warn', '[ WARN ] firewall detected ... bypassing'],
-  ['ok',   '[  OK  ] multi-device handshake complete'],
+  ['bad',  '[ !!!! ] brute-forcing handshake 0x7F3A'],
+  ['ok',   '[  OK  ] multi-device tunnel encrypted'],
   ['hot',  '> ALL SYSTEMS ONLINE'],
 ];
 
@@ -92,36 +92,41 @@ async function typeTerminal() {
     for (const ch of text) {
       if (skipped) return;
       line.textContent += ch;
-      await sleep(ch === '.' ? 6 : 13 + Math.random() * 14);
+      await sleep(ch === '.' ? 4 : 9 + Math.random() * 10);
     }
     term.insertBefore(document.createTextNode('\n'), cur);
-    await sleep(120 + Math.random() * 120);
+    await sleep(70 + Math.random() * 90);
   }
 }
 
 function buildWordmark() {
   const wm = $('#wordmark'); wm.textContent = '';
-  [...'SMILEY CYMOR MD'].forEach((ch, i) => {
-    const s = document.createElement('span');
-    s.style.setProperty('--i', i);
-    if (ch === ' ') s.className = 'sp'; else s.textContent = ch;
-    s.setAttribute('aria-hidden', 'true');
-    wm.appendChild(s);
-  });
+  let i = 0;
+  for (const word of ['SMILEY', 'CYMOR', 'MD']) {
+    const row = document.createElement('div'); row.className = 'wd';
+    for (const ch of word) {
+      const s = document.createElement('span'); s.style.setProperty('--i', i++); s.textContent = ch; row.appendChild(s);
+    }
+    wm.appendChild(row);
+  }
 }
 
 async function typeMotto() {
   const el = $('#motto'); el.textContent = '';
-  for (const ch of 'No one does it better than me') {
-    if (skipped) { el.textContent = 'No one does it better than me'; return; }
-    el.textContent += ch; await sleep(38);
+  const t = 'No one does it better than me';
+  for (const ch of t) {
+    if (skipped) { el.textContent = t; return; }
+    el.textContent += ch; await sleep(30);
   }
 }
 
 let introDone = false;
 function endIntro() {
   if (introDone) return; introDone = true;
-  const fl = $('#flash'); fl.classList.add('go');
+  $('#enter').classList.remove('show');
+  const tv = $('#tv');
+  if (!reduce) tv.classList.add('off');
+  setTimeout(() => $('#flash').classList.add('go'), reduce ? 0 : 520);
   setTimeout(() => {
     mode = 'net'; cx.fillStyle = '#04070f'; cx.fillRect(0, 0, W, H);
     $('#intro').classList.add('out');
@@ -129,44 +134,47 @@ function endIntro() {
     $('#site').hidden = false;
     scrollTo(0, 0);
     if (matchMedia('(pointer:fine)').matches) setTimeout(() => $('#num').focus({ preventScroll: true }), 900);
-  }, reduce ? 0 : 260);
-  setTimeout(() => $('#intro').remove(), 1400);
+  }, reduce ? 0 : 800);
+  setTimeout(() => $('#intro').remove(), 2000);
 }
 
 async function runIntro() {
+  const tv = $('#tv');
   if (reduce) {
-    $('#termBox').classList.add('hide');
-    $('#stage').classList.add('reveal'); buildWordmark(); $('#wordmark').classList.add('show');
+    tv.classList.add('in', 'on'); $('#termBox').classList.add('hide');
+    buildWordmark(); $('#wordmark').classList.add('show'); $('#stageRow').classList.add('moved');
     $('#motto').textContent = 'No one does it better than me';
-    await sleep(1200); return endIntro();
+    await sleep(1400); return endIntro();
   }
-  await sleep(700);
-  await typeTerminal();
+  await sleep(250);
+  tv.classList.add('in');                       // TV fades up
+  await sleep(450);
+  tv.classList.add('on');                       // CRT power-on (line → full screen)
+  await sleep(950);
+  await typeTerminal();                         // 1) hacking intro on the screen
   if (skipped) return;
-  await sleep(350);
+  await sleep(250);
 
-  // glitch "ACCESS GRANTED"
-  rainSpeed = 3.2;
-  $('#termBox').classList.add('hide');
+  rainSpeed = 3.2;                              // glitchy ACCESS GRANTED
   $('#access').classList.add('on');
   document.body.classList.add('shake');
-  await sleep(1000);
+  await sleep(950);
   document.body.classList.remove('shake');
   $('#access').classList.remove('on');
+  $('#termBox').classList.add('hide');
+  rainSpeed = 1;
   if (skipped) return;
 
-  // logo reveal
-  rainSpeed = 1;
-  $('#stage').classList.add('reveal');
-  setTimeout(() => { if (!introDone) { mode = 'net'; cx.fillStyle = '#04070f'; cx.fillRect(0, 0, W, H); } }, skipped ? 0 : 1100);
-  await sleep(1500);
-  buildWordmark(); $('#wordmark').classList.add('show');
-  await sleep(900);
-  await typeMotto();
-  await sleep(300);
+  await sleep(350);
+  buildWordmark(); $('#wordmark').classList.add('show');   // 2) SMILEY CYMOR MD on the screen
+  await sleep(1900);
+  typeMotto();
+  await sleep(550);
+  $('#stageRow').classList.add('moved');        // 3) wordmark slides aside, logo appears
+  await sleep(2300);
   $('#enter').classList.add('show');
-  await sleep(4200);
-  endIntro();
+  await sleep(1100);
+  endIntro();                                   // 4) TV shuts off, site opens
 }
 
 $('#skip').addEventListener('click', () => { skipped = true; endIntro(); });
